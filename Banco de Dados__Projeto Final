@@ -1,0 +1,77 @@
+Query SQL
+
+--Sem Resposta        
+--SELECT id, id_cliente, id_conta,
+--dependente
+--FROM cliente_conta
+--WHERE id_cliente IN (
+--SELECT id
+--FROM cliente
+--WHERE nome);
+
+--Parte (1) do projeto final D para Dependente e DC para Dono de Conta ou pessoa do quem dependem
+
+--SELECT D.nome AS 'Nome do dependente', DC.nome AS 'Dono de --conta'
+--FROM
+--(
+--SELECT CC.id_conta, CL.nome, CC.dependente
+--FROM  cliente_conta AS CC
+--JOIN cliente AS CL
+--ON CC.id_cliente=CL.id
+--WHERE CC.dependente=1
+--ORDER BY CC.id_conta  
+--) AS D,
+
+--(
+--SELECT CC2.id_conta, CL2.nome, CC2.dependente
+--FROM cliente_conta AS CC2
+--JOIN cliente AS CL2
+--ON CC2.id_cliente=CL2.id
+--WHERE CC2.dependente=0
+--ORDER BY CC2.id_conta
+  --) AS DC
+  --WHERE D.id_conta=DC.id_conta;
+  
+--Parte (2)
+
+----As 5 Contas com mais Transaçoes
+--SELECT NC.numero AS 'Numero_de_conta', COUNT (*) AS 'Numero_de_transaçoes'
+--FROM transacao AS T
+--JOIN cliente_conta AS CC
+--ON CC.id=T.id_cliente_conta
+--JOIN conta AS NC
+--ON NC.id=CC.id_conta
+--GROUP BY Numero_de_conta
+--ORDER BY Numero_de_transaçoes DESC
+--LIMIT 5;
+
+----As 5 Contas com menos Transaçoes
+--SELECT NC.numero AS 'Numero_de_conta', COUNT (*) AS 'Numero_de_transaçoes'
+--FROM transacao AS T
+--JOIN cliente_conta AS CC
+--ON CC.id=T.id_cliente_conta
+--JOIN conta AS NC
+--ON NC.id=CC.id_conta
+--GROUP BY Numero_de_conta
+--ORDER BY Numero_de_transaçoes ASC
+--LIMIT 5;
+
+
+--Parte (3)
+
+--Saldo Total de Transaçoes de cada conta
+
+SELECT
+	CO.numero AS 'Numero de Conta',
+	ROUND(SUM(CASE WHEN descricao = 'deposito' THEN valor ELSE 0 END),2) AS "Total de depositos (+)",
+	ROUND(SUM(CASE WHEN descricao = 'transferencia' THEN valor ELSE 0 END),2) AS "Total de transferencias (+)",
+    ROUND (SUM(CASE WHEN descricao = 'deposito' THEN valor ELSE 0 END)+SUM(CASE WHEN descricao = 'transferencia' THEN valor ELSE 0 END),2) AS "TOTAL SALDO"
+FROM transacao AS T
+JOIN tipo_transacao AS TT
+	ON T.id_tipo_transacao = TT.id
+JOIN cliente_conta AS CC
+ON CC.id=T.id_cliente_conta
+JOIN conta AS CO
+ON CO.id=CC.id_conta
+GROUP BY CC.id_conta
+ORDER BY CC.id_conta;

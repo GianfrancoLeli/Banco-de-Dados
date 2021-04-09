@@ -1,0 +1,76 @@
+Schema SQL
+
+CREATE TABLE cliente (
+id_cliente INTEGER PRIMARY KEY AUTOINCREMENT,
+nome TEXT NOT NULL
+);
+ALTER TABLE cliente ADD COLUMN cpf TEXT;
+
+
+
+CREATE TABLE atendente (
+id_atendente INTEGER PRIMARY KEY AUTOINCREMENT,
+nome TEXT NOT NULL
+);
+ALTER TABLE atendente ADD COLUMN codigo TEXT;
+
+
+
+CREATE TABLE atendente_pedido (
+id_atendente_pedido INTEGER PRIMARY KEY);
+
+
+
+CREATE TABLE pedido (
+id_pedido INTEGER PRIMARY KEY AUTOINCREMENT);
+
+
+
+CREATE TABLE mesa (
+id_mesa INTEGER PRIMARY KEY AUTOINCREMENT, 
+capacidade TEXT NOT NULL
+);
+ALTER TABLE mesa ADD COLUMN ubicaçao TEXT;
+
+
+
+CREATE TABLE cardapio (TEXT,nome TEXT NOT NULL
+);
+ALTER TABLE cardapio ADD COLUMN item TEXT
+
+Query SQL
+
+--INSERT INTO cliente (nome, cpf) VALUES 
+--('Peter Parker', '48474'),
+--('Reed Richards', '37457'),
+--('Bruce Banner', '08432');
+
+--SELECT *
+--FROM cliente
+
+--INSERT INTO atendente (nome, codigo) VALUES 
+--('Garzon Bernard', '123'),
+--('Garzon Alfred', '456'),
+--('Garzon Kato', '789');
+
+--SELECT * FROM atendente
+
+--INSERT INTO cardapio (nome, item) VALUES 
+--('Batata', 'item 1'),
+--('Churrasco', 'item 2'),
+--('Refrigerante', 'item 3');
+
+--INSERT INTO mesa (capacidade, ubicaçao) VALUES 
+--('2 pessoas', 'direita'),
+--('4 pessoas', 'esquerda'),
+--('6 pessoas', 'centro');
+
+--SELECT * FROM mesa
+
+--INSERT INTO atendente_pedido 
+	--(id_atendente, id_pedido)
+--VALUES
+	--(1, 1),
+    --(2, 2),
+    --(3, 3);
+
